@@ -33,6 +33,12 @@ function Placedetails({ place }) {
           {place.name}
         </Typography>
         <Box display="flex" justifyContent="space-between">
+        <Rating value={Number(place.rating)} readOnly/>
+          <Typography gutterBottom variant="subtitle1">
+            Out of {place.num_reviews} reviews
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Price</Typography>
           <Typography gutterBottom variant="subtitle1">
             {place.price_level}
@@ -65,6 +71,19 @@ function Placedetails({ place }) {
             <LocationOnIcon />{place.address}
           </Typography>
         )}
+        {place?.phone && (
+            <Typography gutterBottom variant='subtitle2' color='textSecondary' className={classes.phone}>
+              <PhoneIcon /> {place.phone}
+            </Typography>
+        )}
+        <CardActions>
+          <Button size='small' color='primary' onClick={() => window.open(place.web_url, '_Blank')}>
+            Trip Advisor
+          </Button>
+          <Button size='small' color='primary' onClick={() => window.open(place.website, '_Blank')}>
+            Website
+          </Button>
+        </CardActions>
       </CardContent>
     </Card>
   );
