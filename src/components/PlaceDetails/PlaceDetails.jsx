@@ -14,8 +14,10 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIcon from "@material-ui/icons/Phone";
 import Rating from "@material-ui/lab/Rating";
 
-function Placedetails({ place }) {
+function Placedetails({ place, selected, refProp }) {
   const classes = useStyles();
+
+  if (selected) refProp?.current?.scrollIntoView({ behavior: "smooth", block: 'start' })
 
   return (
     <Card elevation={6}>

@@ -7,7 +7,7 @@ import Rating from "@material-ui/lab/Rating";
 // import mapStyles from '../../mapStyles';
 import useStyles from "./styles.js";
 
-function Map({ setCoordinates, setBounds, coordinates, places, setChildClicked }) {
+function Map({ setcoords, setBounds, coords, places, setChildClicked }) {
   const classes = useStyles();
   const isDesktop = useMediaQuery("(min-width:600px)");
 
@@ -15,16 +15,16 @@ function Map({ setCoordinates, setBounds, coordinates, places, setChildClicked }
     <div className={classes.mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyATXAyLKO2Gbm2Mw5iqtSSdCZ5uuwFClMs" }}
-        defaultCenter={coordinates}
-        center={coordinates}
+        defaultCenter={coords}
+        center={coords}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={""}
         onChange={(e) => {
-          setCoordinates({ lat: e.center.lat, lng: e.center.lng });
+          setcoords({ lat: e.center.lat, lng: e.center.lng });
           setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         }}
-        onChildClick={(child) => (setChildClicked(child))}
+        onChildClick={(child) => setChildClicked(child)}
       >
         {places?.map((place, i) => (
           <div
@@ -40,7 +40,7 @@ function Map({ setCoordinates, setBounds, coordinates, places, setChildClicked }
                 <Typography
                   className={classes.typography}
                   variant="subtitle2"
-                  gutterbottom
+                  gutterBottom
                 >
                   {place.name}
                 </Typography>
@@ -53,7 +53,7 @@ function Map({ setCoordinates, setBounds, coordinates, places, setChildClicked }
                   }
                   alt={place.name}
                 />
-                <Rating size='small' value={Number(place.rating)} readOnly/>
+                <Rating size="small" value={Number(place.rating)} readOnly />
               </Paper>
             )}
           </div>

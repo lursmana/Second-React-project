@@ -8,22 +8,26 @@ import { Data } from "@react-google-maps/api";
 
 function App() {
   const [places, setPlaces] = useState([]);
-  const [childClicked, setChildClicked] = useState(null)
-  const [coordinates, setCoordinates] = useState({});
+  const [childClicked, setChildClicked] = useState(null);
+  const [coords, setcoords] = useState({});
   const [bounds, setBounds] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-      setCoordinates({ lat: latitude, lng: longitude });
-    });
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        setcoords({ lat: latitude, lng: longitude });
+      }
+    );
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     getPlacesData(bounds.sw, bounds.ne).then((data) => {
-      console.log(data);
       setPlaces(data);
+      setIsLoading(false);
     });
-  }, [coordinates, bounds]);
+  }, [coords, bounds]);
 
   return (
     <>
@@ -31,13 +35,17 @@ function App() {
       <Header />
       <Grid container spacing={3} style={{ width: "100%" }}>
         <Grid item xs={12} md={4}>
-          <List places={places} childClicked={childClicked} />
+          <List
+            places={places}
+            childClicked={childClicked}
+            isLoading={isLoading}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
           <Map
-            setCoordinates={setCoordinates}
+            setcoords={setcoords}
             setBounds={setBounds}
-            coordinates={coordinates}
+            coords={coords}
             places={places}
             setChildClicked={setChildClicked}
           />
