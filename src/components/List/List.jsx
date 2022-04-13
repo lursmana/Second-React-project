@@ -11,10 +11,9 @@ import {
 } from "@material-ui/core";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-function List({ places, childClicked, isLoading}) {
+function List({ places, childClicked, isLoading, type, rating, setType, setRating}) {
   const classes = useStyles();
-  const [type, setType] = useState("restaurants");
-  const [rating, setRating] = useState("");
+  
   const [elementRefs, setElementRefs] = useState([])
 
   useEffect(() => {
